@@ -1,0 +1,3246 @@
+/* ============================================
+   ANLONG SAFETY NET - STYLESHEET
+   配色：安隆安全（青）／ 安隆居家（橘）
+   ============================================ */
+
+/* ===== CSS Variables (Theme) ===== */
+:root {
+  --primary: #0f2c4a;
+  --primary-light: #1e4976;
+  --bg: #f8f9fb;
+  --bg-alt: #ffffff;
+  --text: #0a1929;
+  --muted: #64748b;
+  --border: rgba(15, 44, 74, 0.1);
+  --shadow-sm: 0 2px 8px rgba(15, 44, 74, 0.06);
+  --shadow-md: 0 8px 24px rgba(15, 44, 74, 0.08);
+  --shadow-lg: 0 20px 50px rgba(15, 44, 74, 0.15);
+
+  /* default = safety theme */
+  --accent: #4a8c8c;
+  --accent-light: #7eb3b3;
+  --accent-soft: rgba(74, 140, 140, 0.1);
+  --accent-soft-strong: rgba(74, 140, 140, 0.2);
+}
+
+body[data-brand="safety"] {
+  --accent: #4a8c8c;
+  --accent-light: #7eb3b3;
+  --accent-soft: rgba(74, 140, 140, 0.1);
+  --accent-soft-strong: rgba(74, 140, 140, 0.2);
+  --bg: #f6f8f9;
+}
+
+body[data-brand="home"] {
+  --accent: #e87722;
+  --accent-light: #f4a261;
+  --accent-soft: rgba(232, 119, 34, 0.1);
+  --accent-soft-strong: rgba(232, 119, 34, 0.2);
+  --bg: #faf8f5;
+}
+
+/* ===== Reset & Base ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", -apple-system,
+    BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.4s ease;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ===== Typography utilities ===== */
+.font-display {
+  font-family: "Noto Serif TC", "PingFang TC", serif;
+  letter-spacing: 0.02em;
+}
+
+/* ===== Container ===== */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.container-narrow {
+  max-width: 768px;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+/* ===== Brand-conditional display ===== */
+/* 隱藏不符合品牌的元素；符合的元素會保留它原本的 display 值
+   （這樣 grid 維持 grid、flex 維持 flex、span 維持 inline） */
+body[data-brand="safety"] .brand-show-home,
+body[data-brand="home"] .brand-show-safety {
+  display: none;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(15, 44, 74, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--accent-soft-strong);
+  transition: border-color 0.4s ease;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.logo-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.4s ease;
+}
+
+.logo-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.logo-name {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.2;
+}
+
+.logo-en {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  letter-spacing: 0.15em;
+}
+
+.nav-desktop {
+  display: none;
+  gap: 2rem;
+  color: white;
+  font-size: 0.875rem;
+}
+
+.nav-desktop a {
+  transition: opacity 0.2s;
+}
+
+.nav-desktop a:hover {
+  opacity: 0.7;
+}
+
+.header-cta {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: transform 0.2s, background-color 0.4s ease;
+}
+
+.header-cta:hover {
+  transform: scale(1.05);
+}
+
+.header-cta svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.mobile-toggle {
+  color: white;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-toggle svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.mobile-toggle .icon-close {
+  display: none;
+}
+
+.mobile-toggle.active .icon-menu {
+  display: none;
+}
+
+.mobile-toggle.active .icon-close {
+  display: block;
+}
+
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  padding: 0 1.5rem 1rem;
+  gap: 0.5rem;
+}
+
+.nav-mobile.open {
+  display: flex;
+}
+
+.nav-mobile a {
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
+
+.nav-mobile a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-cta {
+  background: var(--accent);
+  text-align: center;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  transition: background-color 0.4s ease;
+}
+
+@media (min-width: 1200px) {
+  .nav-desktop,
+  .header-cta {
+    display: flex;
+  }
+  .mobile-toggle {
+    display: none;
+  }
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  position: relative;
+  padding: 8rem 0 6rem;
+  background: var(--primary);
+  overflow: hidden;
+}
+
+.hero-bg-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.06) 25%,
+      transparent 25%
+    ),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.06) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.06) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.hero-glow {
+  position: absolute;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.hero-glow-1 {
+  top: -8rem;
+  right: -8rem;
+  background: var(--accent);
+  opacity: 0.2;
+}
+
+.hero-glow-2 {
+  bottom: 0;
+  left: -8rem;
+  background: var(--accent-light);
+  opacity: 0.1;
+}
+
+.hero-inner {
+  position: relative;
+}
+
+/* 品牌切換器 */
+.brand-switcher {
+  display: inline-flex;
+  padding: 0.4rem;
+  margin: 0 auto 3rem;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  justify-self: center;
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brand-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.brand-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.brand-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.brand-btn.active {
+  background: var(--accent);
+  color: white;
+}
+
+.brand-btn-en {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .brand-btn-en {
+    display: inline;
+  }
+}
+
+/* Hero 內容 */
+.hero-content {
+  text-align: center;
+  color: white;
+  width: 100%;
+}
+
+.hero-tag {
+  display: inline-block;
+  padding: 0.375rem 1rem;
+  border: 1px solid var(--accent-soft-strong);
+  color: var(--accent-light);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  border-radius: 9999px;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-family: "Noto Serif TC", serif;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.hero-title .accent {
+  color: var(--accent-light);
+  transition: color 0.4s ease;
+}
+
+@media (min-width: 640px) {
+  .hero-title {
+    font-size: 3.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 4.5rem;
+  }
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 42rem;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+
+@media (min-width: 640px) {
+  .hero-subtitle {
+    font-size: 1.125rem;
+  }
+}
+
+.hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .hero-actions {
+    flex-direction: row;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: transform 0.2s, background-color 0.3s, border-color 0.3s;
+  white-space: nowrap;
+}
+
+.btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: white;
+}
+
+.btn-accent:hover {
+  transform: scale(1.05);
+}
+
+.btn-outline {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline:hover {
+  border-color: white;
+  transform: scale(1.05);
+}
+
+/* 數據統計 */
+.hero-stats {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .hero-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stat-item {
+  text-align: center;
+  color: white;
+}
+
+.stat-num {
+  font-family: "Noto Serif TC", serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--accent-light);
+  margin-bottom: 0.5rem;
+  transition: color 0.4s ease;
+}
+
+@media (min-width: 1024px) {
+  .stat-num {
+    font-size: 3rem;
+  }
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.1em;
+}
+
+/* ============================================
+   FEATURES
+   ============================================ */
+.features {
+  padding: 5rem 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.feature-card {
+  padding: 1.5rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.feature-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.feature-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.feature-card h3 {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ============================================
+   SECTION HEADERS
+   ============================================ */
+.section-eyebrow {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.875rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  margin-bottom: 0.75rem;
+  transition: color 0.4s ease;
+}
+
+.section-eyebrow-light {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.875rem;
+  color: var(--accent-light);
+  letter-spacing: 0.2em;
+  margin-bottom: 0.75rem;
+  transition: color 0.4s ease;
+}
+
+.section-title {
+  font-family: "Noto Serif TC", serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .section-title {
+    font-size: 3rem;
+  }
+}
+
+.section-title-light {
+  font-family: "Noto Serif TC", serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .section-title-light {
+    font-size: 3rem;
+  }
+}
+
+.section-desc {
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .section-header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.section-header-center {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-header-center .section-desc {
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+/* ============================================
+   PRODUCTS
+   ============================================ */
+.products-section {
+  padding: 6rem 0;
+  background: white;
+}
+
+.categories-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cat-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: rgba(15, 44, 74, 0.06);
+  color: var(--primary);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.cat-btn:hover {
+  background: rgba(15, 44, 74, 0.1);
+}
+
+.cat-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.product-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card.hidden {
+  display: none;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+.product-visual {
+  position: relative;
+  height: 14rem;
+  background: var(--primary);
+  overflow: hidden;
+  background-image: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(15, 44, 74, 0.4) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0,
+      transparent 14px,
+      rgba(126, 179, 179, 0.15) 14px,
+      rgba(126, 179, 179, 0.15) 15px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0,
+      transparent 14px,
+      rgba(126, 179, 179, 0.15) 14px,
+      rgba(126, 179, 179, 0.15) 15px
+    );
+  transition: background-image 0.4s ease;
+}
+
+body[data-brand="home"] .product-visual {
+  background-image: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(15, 44, 74, 0.4) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0,
+      transparent 14px,
+      rgba(244, 162, 97, 0.2) 14px,
+      rgba(244, 162, 97, 0.2) 15px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0,
+      transparent 14px,
+      rgba(244, 162, 97, 0.2) 14px,
+      rgba(244, 162, 97, 0.2) 15px
+    );
+}
+
+.product-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-icon::before {
+  content: "";
+  display: block;
+  width: 5rem;
+  height: 5rem;
+  background: var(--accent-soft-strong);
+  border: 1px solid rgba(126, 179, 179, 0.4);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+  transition: transform 0.5s, background-color 0.4s ease, border-color 0.4s ease;
+}
+
+body[data-brand="home"] .product-icon::before {
+  border-color: rgba(244, 162, 97, 0.4);
+}
+
+.product-card:hover .product-icon::before {
+  transform: scale(1.1);
+}
+
+.product-icon::after {
+  content: "";
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: var(--accent-light);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  transition: background-color 0.4s ease;
+}
+
+.product-icon[data-icon="shield"]::after {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>");
+}
+
+.product-icon[data-icon="home"]::after {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>");
+}
+
+.product-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+  transition: background-color 0.4s ease;
+}
+
+.product-body {
+  padding: 1.5rem;
+}
+
+.product-body h3 {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  transition: transform 0.3s;
+}
+
+.product-card:hover .product-body h3 {
+  transform: translateX(4px);
+}
+
+.product-body p {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.product-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--accent);
+  transition: color 0.4s ease;
+}
+
+/* ============================================
+   CASES
+   ============================================ */
+.cases-section {
+  padding: 6rem 0;
+}
+
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .cases-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cases-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.case-card {
+  padding: 1.75rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.case-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.case-meta {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  transition: color 0.4s ease;
+}
+
+.case-card h3 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  transition: transform 0.3s;
+}
+
+.case-card:hover h3 {
+  transform: translateX(4px);
+}
+
+.case-card p {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.case-footer {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.case-footer span {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.case-footer::after {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  background: var(--accent);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><polyline points='22 4 12 14.01 9 11.01'/></svg>") no-repeat center / contain;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 11.08V12a10 10 0 1 1-5.93-9.14'/><polyline points='22 4 12 14.01 9 11.01'/></svg>") no-repeat center / contain;
+  transition: background-color 0.4s ease;
+}
+
+.cases-more {
+  text-align: center;
+  margin-top: 2.5rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* ============================================
+   ABOUT
+   ============================================ */
+.about-section {
+  padding: 6rem 0;
+  position: relative;
+  overflow: hidden;
+  background: var(--primary);
+}
+
+.about-bg-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.06) 25%,
+      transparent 25%
+    ),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.06) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.06) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.about-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .about-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.about-content {
+  color: white;
+}
+
+.about-text {
+  margin-top: 1rem;
+}
+
+.about-text p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.about-text strong {
+  color: var(--accent-light);
+  font-weight: 600;
+  transition: color 0.4s ease;
+}
+
+.about-tags {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.about-tag {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 0.75rem;
+}
+
+.about-tag-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.25rem;
+}
+
+.about-tag-value {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  color: white;
+  font-size: 1.125rem;
+}
+
+/* Coverage Card */
+.coverage-card {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+}
+
+.coverage-title {
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.coverage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.coverage-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  transition: transform 0.3s, background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.coverage-item:hover {
+  transform: translateX(4px);
+}
+
+.coverage-item-main {
+  background: var(--accent-soft-strong);
+  border-color: rgba(126, 179, 179, 0.5);
+}
+
+body[data-brand="home"] .coverage-item-main {
+  border-color: rgba(244, 162, 97, 0.5);
+}
+
+.coverage-item svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--accent-light);
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  transition: color 0.4s ease;
+}
+
+.coverage-city {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.coverage-badge {
+  background: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  transition: background-color 0.4s ease;
+}
+
+.coverage-addr {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 0.25rem;
+}
+
+/* ============================================
+   FAQ
+   ============================================ */
+.faq-section {
+  padding: 6rem 0;
+  background: white;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.faq-item {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.faq-item[open] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  background-color: rgba(74, 140, 140, 0.04);
+}
+
+body[data-brand="home"] .faq-item[open] {
+  background-color: rgba(232, 119, 34, 0.04);
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 3rem;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "";
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  width: 1.25rem;
+  height: 1.25rem;
+  transform: translateY(-50%) rotate(0deg);
+  transition: transform 0.3s, background-color 0.4s ease;
+  background: var(--accent);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='9 18 15 12 9 6'/></svg>") no-repeat center / contain;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='9 18 15 12 9 6'/></svg>") no-repeat center / contain;
+}
+
+.faq-item[open] summary::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.faq-num {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: color 0.4s ease;
+}
+
+.faq-q {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--primary);
+  padding-top: 0.25rem;
+}
+
+.faq-a {
+  padding: 0 1.5rem 1.5rem 5rem;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* ============================================
+   CONTACT
+   ============================================ */
+.contact-section {
+  padding: 6rem 0;
+}
+
+.contact-card {
+  padding: 2rem;
+  background: var(--primary);
+  border-radius: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .contact-card {
+    padding: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contact-card {
+    padding: 4rem;
+  }
+}
+
+.contact-bg-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.06) 25%,
+      transparent 25%
+    ),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.06) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.06) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.contact-glow {
+  position: absolute;
+  right: -5rem;
+  bottom: -5rem;
+  width: 20rem;
+  height: 20rem;
+  background: var(--accent);
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  pointer-events: none;
+  transition: background-color 0.4s ease;
+}
+
+.contact-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.contact-info {
+  color: white;
+}
+
+.contact-intro {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-list a,
+.contact-list .contact-static {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 0.75rem;
+  transition: transform 0.3s;
+}
+
+.contact-list a:hover {
+  transform: translateX(4px);
+}
+
+.contact-icon {
+  width: 3rem;
+  height: 3rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.4s ease;
+}
+
+.contact-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.contact-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.contact-value {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: white;
+}
+
+.contact-email {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.875rem;
+  word-break: break-all;
+}
+
+.contact-sub {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 0.125rem;
+}
+
+/* Form */
+.contact-form {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
+}
+
+.contact-form h3 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.contact-form > p {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(15, 44, 74, 0.2);
+  border-radius: 0.75rem;
+  background: white;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--accent);
+}
+
+.form-group textarea {
+  resize: none;
+}
+
+.form-submit {
+  width: 100%;
+  padding: 0.875rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  transition: transform 0.2s, background-color 0.4s ease;
+}
+
+.form-submit:hover {
+  transform: scale(1.02);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  background: #0a1929;
+  padding: 3rem 0;
+  color: white;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+  }
+}
+
+.footer-logo {
+  margin-bottom: 1rem;
+}
+
+.footer-desc {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+}
+
+.footer h4 {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.footer ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer ul a,
+.footer ul li,
+.footer p {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+  transition: color 0.2s;
+}
+
+.footer ul a:hover {
+  color: white;
+}
+
+.footer-uni {
+  font-size: 0.75rem !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+  margin-top: 0.75rem;
+}
+
+.footer-bottom {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (min-width: 640px) {
+  .footer-bottom {
+    flex-direction: row;
+  }
+}
+
+.footer-bottom p {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-tag {
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 0.2em;
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 25, 41, 0.85);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  border-radius: 1.5rem;
+  max-width: 42rem;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-visual {
+  position: relative;
+  height: 16rem;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-image: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(15, 44, 74, 0.4) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0,
+      transparent 14px,
+      rgba(126, 179, 179, 0.2) 14px,
+      rgba(126, 179, 179, 0.2) 15px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0,
+      transparent 14px,
+      rgba(126, 179, 179, 0.2) 14px,
+      rgba(126, 179, 179, 0.2) 15px
+    );
+  transition: background-image 0.4s ease;
+}
+
+body[data-brand="home"] .modal-visual {
+  background-image: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(15, 44, 74, 0.4) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0,
+      transparent 14px,
+      rgba(244, 162, 97, 0.25) 14px,
+      rgba(244, 162, 97, 0.25) 15px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0,
+      transparent 14px,
+      rgba(244, 162, 97, 0.25) 14px,
+      rgba(244, 162, 97, 0.25) 15px
+    );
+}
+
+.modal-icon {
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  background: var(--accent-soft-strong);
+  border: 1px solid rgba(126, 179, 179, 0.4);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+body[data-brand="home"] .modal-icon {
+  border-color: rgba(244, 162, 97, 0.4);
+}
+
+.modal-icon::after {
+  content: "";
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--accent-light);
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  transition: background-color 0.4s ease;
+}
+
+body[data-brand="home"] .modal-icon::after {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>");
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-close svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.modal-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  margin-bottom: 1rem;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.modal-body h3 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+}
+
+.modal-body > p {
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.modal-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-specs > div {
+  padding: 0.75rem;
+  background: rgba(15, 44, 74, 0.04);
+  border-radius: 0.75rem;
+}
+
+.spec-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+
+.spec-value {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .modal-actions {
+    flex-direction: row;
+  }
+}
+
+.btn-modal {
+  flex: 1;
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  transition: transform 0.2s, background-color 0.4s ease;
+}
+
+.btn-modal:hover {
+  transform: scale(1.02);
+}
+
+.btn-modal-primary {
+  background: var(--accent);
+  color: white;
+}
+
+.btn-modal-outline {
+  background: white;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+/* ============================================
+   LINE FLOAT BUTTON
+   ============================================ */
+.line-float {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: #06c755;
+  color: white;
+  border-radius: 9999px;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(6, 199, 85, 0.4);
+  transition: transform 0.2s;
+}
+
+.line-float:hover {
+  transform: scale(1.05);
+}
+
+.line-float svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.line-float span {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .line-float span {
+    display: inline;
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   PRODUCT DETAIL PAGES (產品獨立頁面)
+   ============================================ */
+
+/* Breadcrumb */
+.breadcrumb {
+  padding: 6.5rem 0 1rem;
+  background: var(--bg);
+}
+
+.breadcrumb .container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.breadcrumb a {
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.breadcrumb .separator {
+  opacity: 0.4;
+}
+
+.breadcrumb .current {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+/* Product Hero */
+.product-page-hero {
+  padding: 2rem 0 5rem;
+  background: var(--bg);
+}
+
+.product-page-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .product-page-hero-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.product-page-visual {
+  position: relative;
+  height: 24rem;
+  border-radius: 1.5rem;
+  background: var(--primary);
+  overflow: hidden;
+  background-image: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(15, 44, 74, 0.4) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0,
+      transparent 14px,
+      rgba(126, 179, 179, 0.18) 14px,
+      rgba(126, 179, 179, 0.18) 15px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0,
+      transparent 14px,
+      rgba(126, 179, 179, 0.18) 14px,
+      rgba(126, 179, 179, 0.18) 15px
+    );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-image 0.4s ease;
+}
+
+body[data-brand="home"] .product-page-visual {
+  background-image: linear-gradient(
+      135deg,
+      transparent 0%,
+      rgba(15, 44, 74, 0.4) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0,
+      transparent 14px,
+      rgba(244, 162, 97, 0.22) 14px,
+      rgba(244, 162, 97, 0.22) 15px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0,
+      transparent 14px,
+      rgba(244, 162, 97, 0.22) 14px,
+      rgba(244, 162, 97, 0.22) 15px
+    );
+}
+
+.product-page-icon {
+  position: relative;
+  width: 9rem;
+  height: 9rem;
+  background: var(--accent-soft-strong);
+  border: 1px solid rgba(126, 179, 179, 0.5);
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+body[data-brand="home"] .product-page-icon {
+  border-color: rgba(244, 162, 97, 0.5);
+}
+
+.product-page-icon::after {
+  content: "";
+  width: 4.5rem;
+  height: 4.5rem;
+  background-color: var(--accent-light);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  transition: background-color 0.4s ease;
+}
+
+.product-page-icon[data-icon="shield"]::after {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>");
+}
+
+.product-page-icon[data-icon="home"]::after {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><polyline points='9 22 9 12 15 12 15 22'/></svg>");
+}
+
+.product-page-info .product-tag {
+  position: relative;
+  display: inline-block;
+  top: auto;
+  left: auto;
+  margin-bottom: 1rem;
+}
+
+.product-page-title {
+  font-family: "Noto Serif TC", serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .product-page-title {
+    font-size: 3rem;
+  }
+}
+
+.product-page-summary {
+  font-size: 1.0625rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.product-page-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .product-page-cta {
+    flex-direction: row;
+  }
+}
+
+.product-page-cta .btn {
+  padding: 0.875rem 1.75rem;
+}
+
+.product-page-cta .btn-outline {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.product-page-cta .btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Product Body Sections */
+.product-section {
+  padding: 4rem 0;
+  background: white;
+}
+
+.product-section-alt {
+  background: var(--bg);
+}
+
+.product-section h2 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 2rem;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.product-section h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: background-color 0.4s ease;
+}
+
+/* Features */
+.feature-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .feature-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.feature-list li {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: var(--accent-soft);
+  border-radius: 0.75rem;
+  line-height: 1.6;
+  color: var(--text);
+  transition: background-color 0.4s ease;
+}
+
+.feature-list li::before {
+  content: "✓";
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-top: 0.125rem;
+  transition: background-color 0.4s ease;
+}
+
+/* Specs Table */
+.specs-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.specs-table tr {
+  border-bottom: 1px solid var(--border);
+}
+
+.specs-table tr:last-child {
+  border-bottom: 0;
+}
+
+.specs-table th,
+.specs-table td {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-size: 0.9375rem;
+}
+
+.specs-table th {
+  width: 30%;
+  font-family: "Noto Serif TC", serif;
+  font-weight: 600;
+  color: var(--primary);
+  background: rgba(15, 44, 74, 0.03);
+  vertical-align: top;
+}
+
+.specs-table td {
+  color: var(--text);
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .specs-table th,
+  .specs-table td {
+    padding: 0.75rem 1rem;
+    display: block;
+    width: 100%;
+  }
+  .specs-table th {
+    padding-bottom: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--accent);
+  }
+  .specs-table td {
+    padding-top: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .specs-table tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+/* Use cases */
+.usecase-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .usecase-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.usecase-card {
+  padding: 1.5rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.usecase-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.usecase-card-num {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  transition: color 0.4s ease;
+}
+
+.usecase-card h3 {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.0625rem;
+}
+
+.usecase-card p {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Related Products */
+.related-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .related-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Product page CTA */
+.product-cta-section {
+  padding: 4rem 0;
+  background: var(--primary);
+  position: relative;
+  overflow: hidden;
+  color: white;
+  text-align: center;
+}
+
+.product-cta-section .container {
+  position: relative;
+}
+
+.product-cta-section h2 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.product-cta-section p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2rem;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product-cta-section .cta-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .product-cta-section .cta-buttons {
+    flex-direction: row;
+  }
+}
+
+/* ============================================
+   多頁版專用樣式
+   ============================================ */
+
+/* 導航 active 狀態 */
+.nav-desktop a.active {
+  color: var(--accent-light);
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-desktop a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  transition: background-color 0.4s ease;
+}
+
+.nav-mobile a.active {
+  background: var(--accent-soft-strong);
+  color: var(--accent-light);
+}
+
+/* 頁面 hero（比首頁 hero 小） */
+.page-hero {
+  padding: 9rem 0 4rem;
+  background: var(--primary);
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.page-hero-inner {
+  position: relative;
+  max-width: 56rem;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.page-hero-eyebrow {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.875rem;
+  color: var(--accent-light);
+  letter-spacing: 0.25em;
+  margin-bottom: 1rem;
+  transition: color 0.4s ease;
+}
+
+.page-hero h1 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .page-hero h1 {
+    font-size: 3.5rem;
+  }
+}
+
+.page-hero p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.page-hero .brand-switcher {
+  margin: 1.5rem auto 0;
+}
+
+/* 雙品牌展示卡（首頁用） */
+.brand-showcase {
+  padding: 5rem 0;
+  background: white;
+}
+
+.brand-showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .brand-showcase-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.brand-showcase-card {
+  position: relative;
+  padding: 3rem 2.5rem;
+  border-radius: 1.5rem;
+  background: var(--primary);
+  color: white;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brand-showcase-card:hover {
+  transform: translateY(-6px);
+}
+
+.brand-showcase-card.safety {
+  background: linear-gradient(135deg, #0f2c4a 0%, #1e4976 60%, #4a8c8c 130%);
+}
+
+.brand-showcase-card.home {
+  background: linear-gradient(135deg, #0f2c4a 0%, #1e4976 60%, #e87722 130%);
+}
+
+.brand-showcase-card::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 16rem;
+  height: 16rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.brand-showcase-eyebrow {
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 0.25em;
+  font-size: 0.875rem;
+  opacity: 0.7;
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.brand-showcase-card h3 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.brand-showcase-card p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.brand-showcase-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.brand-showcase-tag {
+  padding: 0.375rem 0.875rem;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+}
+
+.brand-showcase-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.brand-showcase-link:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateX(4px);
+}
+
+.brand-showcase-link svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* 區段頭部含「查看全部」連結 */
+.section-header-link {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .section-header-link {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.section-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--accent);
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s, color 0.4s ease;
+}
+
+.section-view-all:hover {
+  border-bottom-color: var(--accent);
+}
+
+.section-view-all svg {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.2s;
+}
+
+.section-view-all:hover svg {
+  transform: translateX(3px);
+}
+
+/* 簡介區段（about preview, etc.） */
+.intro-section {
+  padding: 5rem 0;
+  background: var(--bg);
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .intro-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.intro-text p {
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.intro-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.intro-stat {
+  padding: 1.25rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+}
+
+.intro-stat-num {
+  font-family: "Noto Serif TC", serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  transition: color 0.4s ease;
+}
+
+.intro-stat-label {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* contact 頁專屬：地圖 + 服務區域 */
+.coverage-section {
+  padding: 5rem 0;
+  background: white;
+}
+
+.coverage-section-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .coverage-section-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .coverage-section-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.coverage-section-card {
+  padding: 1.75rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  text-align: center;
+  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+}
+
+.coverage-section-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.coverage-section-card .pin {
+  width: 3rem;
+  height: 3rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.coverage-section-card .pin svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.coverage-section-card h3 {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.coverage-section-card .badge-main {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  background: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  border-radius: 9999px;
+  margin-left: 0.25rem;
+  transition: background-color 0.4s ease;
+}
+
+.coverage-section-card .addr {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ============================================
+   案例卡片（含照片版）
+   ============================================ */
+.case-card-image {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  transition: box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
+}
+
+.case-card-image:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+  border-color: var(--accent);
+}
+
+.case-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.case-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.case-card-image:hover .case-photo img {
+  transform: scale(1.05);
+}
+
+.case-badge {
+  position: absolute;
+  top: 0.875rem;
+  right: 0.875rem;
+  padding: 0.375rem 0.75rem;
+  background: rgba(15, 44, 74, 0.85);
+  backdrop-filter: blur(6px);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+}
+
+.case-card-image .case-body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.case-card-image .case-meta {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+  transition: color 0.4s ease;
+}
+
+.case-card-image h3 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.3;
+}
+
+.case-desc {
+  font-size: 0.9375rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.case-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: 0.25rem;
+}
+
+.spec-tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.625rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 9999px;
+  white-space: nowrap;
+  transition: all 0.4s ease;
+}
+
+.case-note {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 0.5rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--border);
+}
+
+/* "更多案例陸續上線" 佔位卡片 */
+.case-card-coming {
+  background: var(--bg);
+  border: 2px dashed var(--border);
+  min-height: 380px;
+}
+
+.case-card-coming:hover {
+  border-color: var(--accent);
+  transform: none;
+  box-shadow: none;
+}
+
+.case-body-coming {
+  padding: 2rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem !important;
+}
+
+.case-icon-coming {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  transition: color 0.4s ease;
+}
+
+.case-body-coming h3 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+
+.case-body-coming p {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ============================================
+   B 方案：導覽列即時品牌切換（頂部分段鈕）
+   ============================================ */
+.header-seg {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+  padding: 0.25rem;
+  gap: 0.25rem;
+  margin-left: 1.25rem;
+  flex-shrink: 0;
+}
+
+.seg-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.seg-btn:hover {
+  color: white;
+}
+
+.seg-btn.active {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+}
+
+/* Logo 副標：安隆「安全 / 居家」即時切換 */
+.logo-suffix {
+  color: var(--accent-light);
+  transition: color 0.3s ease;
+  margin-left: 0.125rem;
+}
+
+/* 窄螢幕：切換鈕縮短為「安全 / 居家」 */
+@media (max-width: 1100px) {
+  .seg-prefix {
+    display: none;
+  }
+  .header-seg {
+    margin-left: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .seg-btn {
+    font-size: 0.75rem;
+    padding: 0.3125rem 0.6875rem;
+  }
+}
+
+/* 分段鈕貼齊 logo，導覽靠右（B 方案版面） */
+.nav-desktop {
+  margin-left: auto;
+  margin-right: 2rem;
+}
+
+/* ============================================
+   產品實景照片（型錄卡 + 產品頁主視覺）
+   ============================================ */
+.product-visual {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card:hover .product-photo {
+  transform: scale(1.05);
+}
+
+/* 有照片時，標籤浮在照片上方 */
+.product-visual .product-tag {
+  z-index: 2;
+}
+
+.product-page-visual {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-page-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Footer 官方 Logo */
+.footer-logo-img {
+  width: 200px;
+  height: auto;
+  display: block;
+}
+
+/* ============================================
+   案例詳細頁
+   ============================================ */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.3s; }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb span[aria-current] { color: var(--primary); }
+
+.case-detail-section { padding: 3rem 0 5rem; }
+
+.case-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+.case-gallery figure { margin: 0; border-radius: 1rem; overflow: hidden; background: var(--bg); }
+.case-gallery img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 4/3; }
+.case-gallery-main { grid-column: 1 / -1; }
+.case-gallery-main img { aspect-ratio: 16/9; }
+@media (min-width: 768px) {
+  .case-gallery { grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; }
+  .case-gallery-main { grid-column: 1; grid-row: 1 / 3; }
+  .case-gallery-main img { aspect-ratio: auto; height: 100%; }
+}
+
+.case-detail-grid {
+  display: grid;
+  gap: 2.5rem;
+}
+@media (min-width: 900px) {
+  .case-detail-grid { grid-template-columns: 1.8fr 1fr; align-items: start; }
+}
+
+.case-detail-body h2 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 1.25rem;
+}
+.case-detail-body p {
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 1.25rem;
+}
+
+.case-cns-note {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  border-radius: 0.5rem;
+}
+.case-cns-note strong { color: var(--primary); display: block; margin-bottom: 0.5rem; }
+.case-cns-note p { margin: 0; font-size: 0.9375rem; }
+
+.case-spec-card, .case-cta-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+.case-spec-card h3, .case-cta-card h3 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.125rem;
+  color: var(--primary);
+  margin-bottom: 1.25rem;
+}
+.case-spec-card dl { display: grid; grid-template-columns: auto 1fr; gap: 0.625rem 1rem; margin: 0; }
+.case-spec-card dt { font-size: 0.8125rem; color: var(--muted); white-space: nowrap; }
+.case-spec-card dd { font-size: 0.875rem; color: var(--primary); margin: 0; font-weight: 500; }
+.case-cta-card p { font-size: 0.875rem; color: var(--muted); margin-bottom: 1.25rem; }
+
+.case-related { margin-top: 4rem; }
+.case-related h2 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.375rem;
+  color: var(--primary);
+  margin-bottom: 1.25rem;
+}
+.case-related-links { display: grid; gap: 0.75rem; }
+@media (min-width: 768px) { .case-related-links { grid-template-columns: repeat(3, 1fr); } }
+.case-related-links a {
+  display: block;
+  padding: 1.125rem 1.375rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.case-related-links a:hover { border-color: var(--accent); box-shadow: var(--shadow-lg); }
+
+/* 案例卡整卡可點 */
+.case-card-link { text-decoration: none; color: inherit; display: block; }
+.case-card-link .case-link-hint {
+  color: var(--accent);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: 0.75rem;
+  display: inline-block;
+}
+
+/* ============================================
+   安全知識專欄
+   ============================================ */
+.blog-list-section { padding: 3rem 0 5rem; }
+.blog-grid { display: grid; gap: 1.5rem; max-width: 800px; margin: 0 auto; }
+
+.blog-card {
+  display: block;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.blog-card:hover { border-color: var(--accent); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+.blog-card h2 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.25rem;
+  color: var(--primary);
+  line-height: 1.45;
+  margin: 0.875rem 0 0.625rem;
+}
+.blog-card p { font-size: 0.9375rem; color: var(--muted); line-height: 1.75; margin: 0 0 0.5rem; }
+
+.blog-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.blog-article-head .blog-meta { margin: 1rem 0; }
+.blog-article-body {
+  max-width: 760px;
+  padding-top: 2.5rem;
+  padding-bottom: 5rem;
+}
+.blog-article-body h2 {
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin: 2.25rem 0 1rem;
+}
+.blog-article-body > p, .blog-article-body p {
+  color: var(--muted);
+  line-height: 1.95;
+  margin-bottom: 1.125rem;
+  font-size: 1rem;
+}
+
+.blog-faq { margin-top: 3rem; }
+.blog-faq-item {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.125rem 1.375rem;
+  margin-bottom: 0.75rem;
+}
+.blog-faq-item summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--primary);
+  list-style: none;
+  position: relative;
+  padding-right: 1.5rem;
+}
+.blog-faq-item summary::after {
+  content: "+";
+  position: absolute; right: 0; top: 0;
+  color: var(--accent);
+  font-size: 1.25rem; line-height: 1;
+  transition: transform 0.3s;
+}
+.blog-faq-item[open] summary::after { transform: rotate(45deg); }
+.blog-faq-item p { margin: 0.875rem 0 0; font-size: 0.9375rem; }
+
+.blog-cta { margin-top: 3rem; text-align: left; }
+
+/* ============================================
+   RWD 補強（含新元件）
+   ============================================ */
+
+/* 導覽列間距在 1200–1400px 收緊，避免擁擠 */
+@media (min-width: 1200px) and (max-width: 1400px) {
+  .nav-desktop { gap: 1.25rem; margin-right: 1.25rem; }
+  .header-seg { margin-left: 0.875rem; }
+}
+
+/* 平板以下改用漢堡選單後，切換鈕保持在頂列 */
+@media (max-width: 1199px) {
+  .header-seg { margin-left: auto; margin-right: 0.875rem; }
+}
+
+/* 超小螢幕（<380px）：隱藏 logo 英文副標，縮小切換鈕 */
+@media (max-width: 380px) {
+  .logo-en { display: none; }
+  .logo-name { font-size: 1rem; }
+  .seg-btn { font-size: 0.6875rem; padding: 0.25rem 0.5625rem; }
+  .header-inner { height: 4.25rem; }
+}
+
+/* 案例詳細頁：手機上規格卡與 CTA 卡滿版易讀 */
+@media (max-width: 899px) {
+  .case-detail-aside { max-width: 480px; }
+}
+
+/* 知識文章 CTA 按鈕：手機上換行不擠壓 */
+.blog-cta { display: flex; flex-direction: column; gap: 0.625rem; align-items: flex-start; }
+.blog-cta .btn { margin-left: 0 !important; }
+@media (min-width: 640px) {
+  .blog-cta { flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .blog-cta h3, .blog-cta p { width: 100%; }
+}
+
+/* 案例畫廊：手機直向時縮圖改單欄較大 */
+@media (max-width: 480px) {
+  .case-gallery { grid-template-columns: 1fr; }
+}
+
+/* 麵包屑在窄螢幕可換行且不溢出 */
+.breadcrumb { overflow-wrap: anywhere; }

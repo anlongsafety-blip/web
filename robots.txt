@@ -1,0 +1,29 @@
+# robots.txt for 安隆安全網有限公司
+# https://www.anlongsafety.com.tw/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.anlongsafety.com.tw/sitemap.xml
+
+# 禁止爬取的目錄（如果之後有後台）
+# Disallow: /admin/
+# Disallow: /api/
+# Disallow: /tmp/
+
+# 友善常見爬蟲
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# AhrefsBot / SEMrushBot 等 SEO 工具爬蟲（依需求可禁用）
+User-agent: AhrefsBot
+Crawl-delay: 5
+
+User-agent: SemrushBot
+Crawl-delay: 5
