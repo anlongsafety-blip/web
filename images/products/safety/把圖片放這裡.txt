@@ -1,0 +1,1 @@
+把產品圖檔放這裡，檔名請參考根目錄的 HOW_TO_ADD_IMAGES.md
