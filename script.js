@@ -262,3 +262,79 @@
     init();
   }
 })();
+
+/* ============================================
+   Hero 輪播 Banner
+   ============================================ */
+(function () {
+  var carousel = document.querySelector(".hero-carousel");
+  if (!carousel) return;
+
+  var allSlides = Array.prototype.slice.call(carousel.querySelectorAll(".hero-slide"));
+  var dotsWrap = carousel.querySelector(".hero-dots");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var timer = null;
+  var idx = 0;
+  var INTERVAL = 5500;
+
+  function currentBrand() {
+    return document.body.getAttribute("data-brand") === "home" ? "home" : "safety";
+  }
+
+  function activeSlides() {
+    var brand = currentBrand();
+    return allSlides.filter(function (s) { return s.getAttribute("data-brand") === brand; });
+  }
+
+  function render() {
+    var slides = activeSlides();
+    allSlides.forEach(function (s) { s.classList.remove("is-active"); });
+    if (!slides.length) return;
+    if (idx >= slides.length) idx = 0;
+    slides[idx].classList.add("is-active");
+
+    // 圓點
+    dotsWrap.innerHTML = "";
+    slides.forEach(function (_, i) {
+      var b = document.createElement("button");
+      b.className = "hero-dot" + (i === idx ? " is-active" : "");
+      b.setAttribute("aria-label", "第 " + (i + 1) + " 張");
+      b.addEventListener("click", function () {
+        idx = i;
+        render();
+        restart();
+      });
+      dotsWrap.appendChild(b);
+    });
+  }
+
+  function next() {
+    idx = (idx + 1) % activeSlides().length;
+    render();
+  }
+
+  function restart() {
+    if (timer) clearInterval(timer);
+    if (!reduceMotion && activeSlides().length > 1) {
+      timer = setInterval(next, INTERVAL);
+    }
+  }
+
+  // 滑鼠停留暫停
+  carousel.addEventListener("mouseenter", function () { if (timer) clearInterval(timer); });
+  carousel.addEventListener("mouseleave", restart);
+
+  // 品牌切換時重置輪播
+  new MutationObserver(function (muts) {
+    muts.forEach(function (m) {
+      if (m.attributeName === "data-brand") {
+        idx = 0;
+        render();
+        restart();
+      }
+    });
+  }).observe(document.body, { attributes: true });
+
+  render();
+  restart();
+})();
