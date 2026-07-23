@@ -3516,3 +3516,26 @@ body[data-brand="home"] .product-page-icon {
   .faq-answer { overflow-x: auto; }
   .faq-table { min-width: 480px; }
 }
+
+/* ===== 手機底部固定聯絡列 ===== */
+.mobile-action-bar{display:none;}
+@media (max-width:768px){
+  .mobile-action-bar{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    position:fixed;left:0;right:0;bottom:0;z-index:60;
+    background:#fff;border-top:1px solid var(--border);
+    box-shadow:0 -4px 16px rgba(15,44,74,.12);
+  }
+  .mobile-action-bar a{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    padding:.5rem 0 calc(.5rem + env(safe-area-inset-bottom));
+    font-size:.75rem;font-weight:700;color:var(--text);text-decoration:none;
+  }
+  .mobile-action-bar a + a{border-left:1px solid var(--border);}
+  .mobile-action-bar a svg{width:22px;height:22px;}
+  .mobile-action-bar .mab-call{color:var(--accent);}
+  .mobile-action-bar .mab-line{color:#06c755;}
+  .mobile-action-bar .mab-quote{color:var(--primary);}
+  .line-float{bottom:5rem;}
+  body{padding-bottom:66px;}
+}

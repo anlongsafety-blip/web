@@ -1,0 +1,27 @@
+# ===== 安隆官網 .gitignore =====
+# ⚠️ 秘密金鑰絕不進 repo(這是公開 repo)
+.env
+.env.*
+*.key
+*secret*
+*credentials*
+config.local.*
+
+# Python 產生器的快取
+__pycache__/
+*.pyc
+*.pyo
+
+# 系統/編輯器雜檔
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*~
+
+# 圖片資料夾裡的佔位說明檔(不需上線)
+**/把圖片放這裡.txt
+
+# 交接/內部文件可選擇是否上線(預設保留,如不想公開可取消下行註解)
+# HANDOFF_交接文件.md
