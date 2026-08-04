@@ -142,7 +142,7 @@ def render_head(title, description, keywords, canonical_filename, jsonld_blocks=
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet" />
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=20260804" />{extra_ld}
+  <link rel="stylesheet" href="styles.css?v=20260804-2" />{extra_ld}
 </head>"""
 
 
@@ -258,7 +258,8 @@ def render_footer():
     <span>LINE 諮詢</span>
   </a>
 
-  <script src="script.js?v=20260804" defer></script>"""
+  <script src="search-data.js?v=20260804-2" defer></script>
+  <script src="script.js?v=20260804-2" defer></script>"""
 
 
 def render_breadcrumb_visible(items):
@@ -895,7 +896,7 @@ def render_faq():
     ])
 
     faq_html = "\n".join(
-        f'''          <details class="faq-item">
+        f'''          <details class="faq-item" id="faq-{num}">
             <summary><span class="faq-num">{num}</span><span class="faq-q">{q}</span></summary>
             <div class="faq-a">{a}</div>
           </details>'''

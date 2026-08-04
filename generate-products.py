@@ -951,7 +951,7 @@ def render_page(pid, product):
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="../../styles.css?v=20260804" />
+  <link rel="stylesheet" href="../../styles.css?v=20260804-2" />
 
   <!-- JSON-LD: Product -->
   <script type="application/ld+json">
@@ -1162,7 +1162,8 @@ def render_page(pid, product):
     <span>LINE 諮詢</span>
   </a>
 
-  <script src="../../script.js?v=20260804" defer></script>
+  <script src="../../search-data.js?v=20260804-2" defer></script>
+  <script src="../../script.js?v=20260804-2" defer></script>
 </body>
 </html>
 """
