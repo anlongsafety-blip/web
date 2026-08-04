@@ -27,7 +27,7 @@ spec = importlib.util.spec_from_file_location("gp", OUTPUT_DIR / "generate-produ
 gp = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(gp)
 PRODUCTS = gp.PRODUCTS
-BRAND_NAMES = {"safety": "安隆安全", "home": "安隆居家"}
+BRAND_NAMES = {"safety": "安隆工程", "home": "安隆居家"}
 
 # 導航定義
 NAV = [
@@ -367,7 +367,7 @@ def render_product_card(pid, p):
 def render_index():
     """首頁 — 多頁版 landing"""
     title = "安隆安全網有限公司｜防墜網、隱形鐵窗、樓梯安全網、球場攔截網專業安裝"
-    description = "安隆安全網專營各式安全網。旗下兩大品牌：安隆安全（工程級）、安隆居家（住宅用）。北中南四大駐點，5,000 萬產品責任險，國家認證。"
+    description = "安隆安全網專營各式安全網。旗下兩大品牌：安隆工程（工程級）、安隆居家（住宅用）。北中南四大駐點，5,000 萬產品責任險，國家認證。"
     keywords = "安隆安全網,防墜網,隱形鐵窗,樓梯安全網,工地安全網,球類攔截網,高雄安全網,陽台防墜網"
 
     # 結構化資料
@@ -429,7 +429,7 @@ def render_index():
         <div class="brand-switcher" role="tablist" aria-label="品牌切換">
           <button class="brand-btn brand-btn-safety active" data-brand="safety" role="tab" aria-selected="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>安隆安全</span><span class="brand-btn-en">SAFETY</span>
+            <span>安隆工程</span><span class="brand-btn-en">SAFETY</span>
           </button>
           <button class="brand-btn brand-btn-home" data-brand="home" role="tab" aria-selected="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -487,7 +487,7 @@ def render_index():
         <div class="brand-showcase-grid">
           <article class="brand-showcase-card safety">
             <div class="brand-showcase-eyebrow">ANLONG SAFETY</div>
-            <h3>安隆安全 · 工程級</h3>
+            <h3>安隆工程 · 工程級</h3>
             <p>專業工地防墜網、球場攔截網、太陽能板防護網、廠區安全網。符合勞安規範，承載式設計。</p>
             <div class="brand-showcase-tags">
               <span class="brand-showcase-tag">工地防墜網</span>
@@ -604,7 +604,7 @@ def render_index():
 def render_products():
     """產品型錄頁"""
     title = "產品型錄｜安隆安全網有限公司 - 防墜網、隱形鐵窗、樓梯安全網一覽"
-    description = "安隆兩大品牌共 24 項產品。安隆安全（工程級）：工地防墜、球場攔截、太陽能、廠區安全網。安隆居家（住宅用）：樓梯防墜、隱形鐵窗、陽台防護、創意彩色網。"
+    description = "安隆兩大品牌共 24 項產品。安隆工程（工程級）：工地防墜、球場攔截、太陽能、廠區安全網。安隆居家（住宅用）：樓梯防墜、隱形鐵窗、陽台防護、創意彩色網。"
     keywords = "安全網,防墜網,隱形鐵窗,樓梯安全網,球場攔截網,工地安全網,陽台防墜網,農業防鳥網,遮光網,產品型錄"
 
     ld_breadcrumb = render_breadcrumb_jsonld([

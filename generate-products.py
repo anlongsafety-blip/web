@@ -22,7 +22,7 @@ GA4_ID = "G-XXXXXXXXXX"  # ← 替換為實際 GA4 測量 ID
 OUTPUT_DIR = Path(__file__).parent  # 與本腳本同目錄
 PRODUCTS_DIR = OUTPUT_DIR / "products"
 
-BRAND_NAMES = {"safety": "安隆安全", "home": "安隆居家"}
+BRAND_NAMES = {"safety": "安隆工程", "home": "安隆居家"}
 BRAND_NAMES_EN = {"safety": "ANLONG SAFETY", "home": "ANLONG HOME"}
 
 # 共用品牌規格（每個產品都套用）
@@ -1127,7 +1127,7 @@ def render_page(pid, product):
         <div>
           <h4>產品分類</h4>
           <ul>
-            <li><a href="../../products.html">安隆安全 · 工程級</a></li>
+            <li><a href="../../products.html">安隆工程 · 工程級</a></li>
             <li><a href="../../products.html">安隆居家 · 住宅用</a></li>
             <li><a href="../../cases.html">施工案例</a></li>
             <li><a href="../../faq.html">常見問題</a></li>
