@@ -200,6 +200,9 @@
     const form = $("#contactForm");
     if (!form) return;
 
+    const status = $("#formStatus", form);
+    const lineAccountId = "%40643qzkfp";
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
@@ -211,16 +214,28 @@
       };
 
       if (!data.name || !data.phone) {
-        alert("請填寫姓名與聯絡電話");
+        if (status) status.textContent = "請填寫姓名與聯絡電話。";
+        const firstInvalid = !data.name ? form.name : form.phone;
+        firstInvalid.focus();
         return;
       }
 
-      // 未來可改為：
-      //   await fetch('/api/inquiry', { method: 'POST', body: JSON.stringify(data) });
-      console.log("提交詢價資料：", data);
-      alert("感謝您的詢價！我們會在 1 個工作日內回覆。\n\n（此為示意表單，實際送出請串接後端 API）");
+      const message = [
+        "您好，我想詢問安全網安裝：",
+        `姓名：${data.name}`,
+        `電話：${data.phone}`,
+        `區域：${data.region || "未填寫"}`,
+        `需求：${data.message || "希望由專人聯絡說明"}`,
+        `來源頁面：${window.location.href}`,
+      ].join("\n");
 
-      form.reset();
+      if (status) status.textContent = "正在開啟 LINE，訊息帶入後請確認並按下送出。";
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "generate_lead", { method: "LINE inquiry form" });
+      }
+      window.location.assign(
+        `https://line.me/R/oaMessage/${lineAccountId}/?${encodeURIComponent(message)}`
+      );
     });
   }
 

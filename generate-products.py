@@ -858,31 +858,23 @@ def render_product_jsonld(product):
     brand = product["brand"]
     return f"""    {{
       "@context": "https://schema.org",
-      "@type": "Product",
-      "name": "{product['name']}",
-      "description": "{product['summary']}",
-      "category": "{product['category_name']}",
+       "@type": "Product",
+       "name": "{product['name']}",
+       "description": "{product['summary']}",
+       "url": "{SITE_URL}/products/{brand}/{product['slug']}.html",
+       "image": "{SITE_URL}/images/products/{brand}/{product['slug']}.webp",
+       "category": "{product['category_name']}",
       "brand": {{
         "@type": "Brand",
         "name": "{BRAND_NAMES[brand]}",
         "alternateName": "{BRAND_NAMES_EN[brand]}"
       }},
-      "manufacturer": {{
-        "@type": "Organization",
-        "name": "安隆安全網有限公司",
-        "url": "{SITE_URL}/"
-      }},
-      "offers": {{
-        "@type": "Offer",
-        "url": "{SITE_URL}/products/{brand}/{product['slug']}.html",
-        "availability": "https://schema.org/InStock",
-        "priceCurrency": "TWD",
-        "priceSpecification": {{
-          "@type": "PriceSpecification",
-          "valueAddedTaxIncluded": true
-        }}
-      }}
-    }}"""
+       "manufacturer": {{
+         "@type": "Organization",
+         "name": "安隆安全網有限公司",
+         "url": "{SITE_URL}/"
+       }}
+     }}"""
 
 
 def render_page(pid, product):
@@ -905,6 +897,17 @@ def render_page(pid, product):
     breadcrumb_jsonld = render_breadcrumb_jsonld(product)
     product_jsonld = render_product_jsonld(product)
 
+    analytics = ""
+    if GA4_ID != "G-XXXXXXXXXX" and GA4_ID.startswith("G-"):
+        analytics = f"""
+  <script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', '{GA4_ID}', {{ page_title: document.title, page_path: window.location.pathname }});
+  </script>"""
+
     return f"""<!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
@@ -925,22 +928,19 @@ def render_page(pid, product):
   <meta property="og:url" content="{SITE_URL}/products/{brand}/{slug}.html" />
   <meta property="og:title" content="{name}｜{brand_name} - 安隆安全網" />
   <meta property="og:description" content="{summary}" />
+  <meta property="og:image" content="{SITE_URL}/images/products/{brand}/{slug}.webp" />
   <meta property="og:site_name" content="安隆安全網有限公司" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{name}｜{brand_name} - 安隆安全網" />
+  <meta name="twitter:description" content="{summary}" />
+  <meta name="twitter:image" content="{SITE_URL}/images/products/{brand}/{slug}.webp" />
+  <meta name="theme-color" content="#0f2c4a" />
 
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="n2u56H6tGekvNenjobW76FdALH_lMMqFdFpkvfZbAXA" />
 
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){{dataLayer.push(arguments);}}
-    gtag('js', new Date());
-    gtag('config', '{GA4_ID}', {{
-      page_title: document.title,
-      page_path: window.location.pathname
-    }});
-  </script>
+  <!-- GA4 只會在填入有效 Measurement ID 後載入 -->
+{analytics}
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234a8c8c'%3E%3Cpath d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z'/%3E%3C/svg%3E" />
@@ -948,10 +948,10 @@ def render_page(pid, product):
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../styles.css?v=20260804" />
 
   <!-- JSON-LD: Product -->
   <script type="application/ld+json">
@@ -1162,7 +1162,7 @@ def render_page(pid, product):
     <span>LINE 諮詢</span>
   </a>
 
-  <script src="../../script.js" defer></script>
+  <script src="../../script.js?v=20260804" defer></script>
 </body>
 </html>
 """
@@ -1199,34 +1199,38 @@ def main():
 
 
 def generate_sitemap():
-    from datetime import date
-    today = date.today().isoformat()
+    from datetime import datetime
 
-    urls = [
-        (f"{SITE_URL}/", "1.0", "weekly"),
-        (f"{SITE_URL}/products.html", "0.9", "weekly"),
-        (f"{SITE_URL}/cases.html", "0.7", "monthly"),
-        (f"{SITE_URL}/about.html", "0.6", "monthly"),
-        (f"{SITE_URL}/faq.html", "0.6", "monthly"),
-        (f"{SITE_URL}/contact.html", "0.7", "monthly"),
-    ]
-    # 加入所有產品頁
-    for pid, p in PRODUCTS.items():
-        urls.append((f"{SITE_URL}/products/{p['brand']}/{p['slug']}.html", "0.8", "monthly"))
+    urls = []
+    for page in sorted(OUTPUT_DIR.rglob("*.html")):
+        if page.name.startswith("_"):
+            continue
+        rel = page.relative_to(OUTPUT_DIR).as_posix()
+        url = f"{SITE_URL}/" if rel == "index.html" else f"{SITE_URL}/{rel}"
+        if rel == "index.html":
+            priority, changefreq = "1.0", "weekly"
+        elif rel in {"products.html", "blog.html", "cases-gallery.html"}:
+            priority, changefreq = "0.8", "monthly"
+        elif rel.startswith("products/"):
+            priority, changefreq = "0.8", "monthly"
+        else:
+            priority, changefreq = "0.7", "monthly"
+        lastmod = datetime.fromtimestamp(page.stat().st_mtime).date().isoformat()
+        urls.append((url, priority, changefreq, lastmod))
 
     xml = ['<?xml version="1.0" encoding="UTF-8"?>']
     xml.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
-    for url, priority, changefreq in urls:
+    for url, priority, changefreq, lastmod in urls:
         xml.append("  <url>")
         xml.append(f"    <loc>{url}</loc>")
-        xml.append(f"    <lastmod>{today}</lastmod>")
+        xml.append(f"    <lastmod>{lastmod}</lastmod>")
         xml.append(f"    <changefreq>{changefreq}</changefreq>")
         xml.append(f"    <priority>{priority}</priority>")
         xml.append("  </url>")
     xml.append("</urlset>")
 
     (OUTPUT_DIR / "sitemap.xml").write_text("\n".join(xml), encoding="utf-8")
-    print(f"✅ sitemap.xml 已生成（{len(urls)} 筆 URL）")
+    print(f"sitemap.xml 已生成（{len(urls)} 筆 URL）")
 
 
 if __name__ == "__main__":
