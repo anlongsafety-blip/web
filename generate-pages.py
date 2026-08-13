@@ -142,7 +142,7 @@ def render_head(title, description, keywords, canonical_filename, jsonld_blocks=
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet" />
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=20260813-4" />{extra_ld}
+  <link rel="stylesheet" href="styles.css?v=20260813-5" />{extra_ld}
 </head>"""
 
 
