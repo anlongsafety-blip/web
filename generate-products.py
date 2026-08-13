@@ -950,7 +950,7 @@ def render_page(pid, product):
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="../../styles.css?v=20260813-3" />
+  <link rel="stylesheet" href="../../styles.css?v=20260813-4" />
 
   <!-- JSON-LD: Product -->
   <script type="application/ld+json">
@@ -968,15 +968,7 @@ def render_page(pid, product):
   <header class="header">
     <div class="container header-inner">
       <a href="../../index.html" class="logo">
-        <span class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-        </span>
-        <span class="logo-text">
-          <span class="logo-name">安隆</span>
-          <span class="logo-en">ANLONG SAFETY</span>
-        </span>
+        <img class="header-logo-img" src="../../images/logo/anlong-logo-white.webp" alt="&#23433;&#38534;&#23433;&#20840;&#32178;&#26377;&#38480;&#20844;&#21496;" width="480" height="270" decoding="async" />
       </a>
 
       <nav class="nav-desktop">
