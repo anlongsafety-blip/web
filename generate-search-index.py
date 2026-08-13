@@ -53,7 +53,12 @@ def build() -> list[dict]:
         ("cases-gallery.html", "案例圖庫", "照片 相簿 學校 社區 工廠 政府"),
         ("blog.html", "文章總覽", "安全知識 指南 規範 價格"),
         ("about.html", "主要頁面", "公司 介紹 認證 保固 駐點"),
-        ("contact.html", "主要頁面", "聯絡 電話 LINE 免費估價 高雄 台中 新竹 桃園"),
+        ("contact.html", "主要頁面", "聯絡 電話 LINE 免費估價 高雄 台中 新竹 桃園 台北 新北"),
+        ("service-areas/index.html", "地區服務", "服務地區 台北 新北 高雄 新竹 竹北 桃園 安全網 工程實績"),
+        ("service-areas/taipei-safety-net.html", "地區服務", "台北 臺北 新北 安全網 防護網 防墜網 樓梯 工地 學校 公共工程 免費估價"),
+        ("service-areas/kaohsiung-safety-net.html", "地區服務", "高雄 大寮 大社 燕巢 鳥松 安全網 工地 廠房 樓梯 防鳥 校園"),
+        ("service-areas/hsinchu-zhubei-safety-net.html", "地區服務", "新竹 竹北 湖口 安全網 天井 樓梯 學校 商場 工地"),
+        ("service-areas/taoyuan-safety-net.html", "地區服務", "桃園 蘆竹 安全網 外牆 防磁磚 樓梯 工地 體育場 幼兒園"),
     ]
     for path, kind, extra in main_pages:
         add_page(entries, path, kind, extra)

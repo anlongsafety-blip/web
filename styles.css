@@ -68,6 +68,10 @@ svg {
   max-width: 100%;
 }
 
+img {
+  height: auto;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -2315,6 +2319,49 @@ body[data-brand="home"] .product-page-icon {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
+}
+
+.related-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.related-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.related-card > img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center;
+}
+
+.related-card-body {
+  flex: 1;
+  padding: 1.25rem;
+}
+
+.related-card-body h3 {
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+  font-family: "Noto Serif TC", serif;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.related-card-body p {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.65;
 }
 
 @media (min-width: 640px) {
