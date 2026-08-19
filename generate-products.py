@@ -37,7 +37,7 @@ COMMON_SPECS = {
 }
 
 # ============================================
-# 產品資料（24 項）
+# 產品資料（25 項）
 # ============================================
 PRODUCTS = {
     # ============== 安隆安全 ==============
@@ -387,6 +387,40 @@ PRODUCTS = {
             ("特殊建材外牆", "石材、預鑄板的二次防護"),
         ],
         "keywords": "防磁磚掉落網,外牆防墜網,磁磚剝落防護,老舊大樓外牆網,磁磚墜落防護網",
+    },
+    "s13": {
+        "brand": "safety", "slug": "plant-climbing-net",
+        "name": "植物攀爬網", "tag": "植栽綠化", "icon": "shield",
+        "category": "agriculture", "category_name": "農業與綠化",
+        "summary": "牆面、圍籬與棚架用植物攀爬網，依現場尺寸客製菱形網面，協助藤蔓植栽攀附與生長導引。",
+        "description": "植物攀爬網可設置於牆面、圍籬或棚架，提供藤蔓植物攀附與生長方向。安隆依現場結構、範圍及植栽需求規劃網面尺寸與固定方式，適合庭園綠化、建築立面與景觀空間。",
+        "features": [
+            "菱形網目，提供藤蔓多方向攀附",
+            "依牆面、圍籬或棚架尺寸客製",
+            "綠色網體與植栽景觀融合",
+            "固定點位依現場結構規劃",
+            "適用垂直綠化、棚架與圍籬植栽",
+        ],
+        "specs": {
+            "網目": "依植栽種類與現場需求規劃",
+            "尺寸": "依現場丈量客製",
+            "安裝位置": "牆面／圍籬／棚架",
+            "固定方式": "依現場結構評估",
+        },
+        "common_specs": {
+            "保固期": "室外安裝 1 年，室內安裝 2 年（非人為因素及天然災害下損壞）",
+            "服務區域": "高雄、台中、新竹、桃園駐點，全台可服務",
+            "訂製選項": "顏色、尺寸、網目、線徑均可依需求調整",
+            "材料與顏色": "依使用環境、植栽需求及實際材料供應確認",
+            "責任險": "投保 5,000 萬產品責任險",
+            "施工評估": "安裝前確認固定結構、網面張力與植栽空間",
+        },
+        "use_cases": [
+            ("住宅與社區景觀", "庭院牆面、圍籬植栽導引"),
+            ("校園與商業空間", "立面綠化與景觀植栽"),
+            ("棚架綠化", "藤蔓植物攀附與遮蔭規劃"),
+        ],
+        "keywords": "植物攀爬網,藤蔓攀爬網,爬藤網,綠牆網,垂直綠化網,棚架植栽網",
     },
     # ============== 安隆居家 ==============
     "h1": {
@@ -752,12 +786,13 @@ def render_features(features):
     return "\n".join(f"          <li>{f}</li>" for f in features)
 
 
-def render_specs(specs):
+def render_specs(specs, common_specs=None):
     rows = []
     for k, v in specs.items():
         rows.append(f"          <tr><th>{k}</th><td>{v}</td></tr>")
     common = []
-    for k, v in COMMON_SPECS.items():
+    selected_common_specs = COMMON_SPECS if common_specs is None else common_specs
+    for k, v in selected_common_specs.items():
         common.append(f"          <tr><th>{k}</th><td>{v}</td></tr>")
     return "\n".join(rows + common)
 
@@ -890,7 +925,7 @@ def render_page(pid, product):
     keywords = product["keywords"]
 
     features_html = render_features(product["features"])
-    specs_html = render_specs(product["specs"])
+    specs_html = render_specs(product["specs"], product.get("common_specs"))
     use_cases_html = render_use_cases(product["use_cases"])
     related_html = render_related_products(pid, brand, product["category"])
     breadcrumb_jsonld = render_breadcrumb_jsonld(product)

@@ -63,15 +63,16 @@ web/  (= anlong-website)
 │   ├── safety-net-material-comparison.html  材質選購指南
 │   └── safety-net-pricing-guide.html        價格指南
 │
-├── products/              24 個產品詳細頁
-│   ├── safety/  (工程品牌 12 頁)
+├── products/              25 個產品詳細頁
+│   ├── safety/  (工程品牌 13 頁)
 │   │   ├── construction-safety-net.html  工地防墜網 ★有實景照
 │   │   ├── building-atrium-net.html      大樓天井網 ★有實景照
 │   │   ├── bird-prevention-net.html      防鳥網 ★有實景照
 │   │   ├── factory-safety-net.html       廠房安全網 ★有實景照
 │   │   ├── tile-protection-net.html      防磁磚網
 │   │   ├── barrier-net.html              攔截網
-│   │   ├── climbing-net.html             攀爬網
+│   │   ├── climbing-net.html             人類攀爬網
+│   │   ├── plant-climbing-net.html       植物攀爬網
 │   │   ├── outdoor-court-net.html        戶外球場網
 │   │   ├── playground-net.html           遊樂場網
 │   │   ├── shade-net.html                遮光網
@@ -158,7 +159,7 @@ web/  (= anlong-website)
 早期用 Python 批次產生頁面。**注意：這些腳本產生的是初版骨架，之後有大量手動編輯疊加上去**（案例頁、blog、品牌切換、輪播、社群按鈕等都是後來直接改 HTML/CSS/JS 加的）。
 
 - `generate-pages.py`：產生 index/products/cases/about/faq/contact 六頁，內含 CASES、FAQS 資料陣列
-- `generate-products.py`：產生 24 產品頁 + sitemap.xml
+- `generate-products.py`：產生 25 產品頁 + sitemap.xml
 - 執行順序：先 pages 後 products
 - ⚠️ **重要**：**現在直接重跑這些腳本會覆蓋掉所有後續手動修改**（品牌切換、輪播、48題FAQ、社群按鈕全沒了）。除非你要重構整個產生流程，否則**不要重跑**，直接編輯 HTML 檔即可。它們留著僅供理解初始結構與參考。
 
