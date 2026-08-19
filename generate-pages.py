@@ -27,7 +27,7 @@ spec = importlib.util.spec_from_file_location("gp", OUTPUT_DIR / "generate-produ
 gp = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(gp)
 PRODUCTS = gp.PRODUCTS
-BRAND_NAMES = {"safety": "安隆安全", "home": "安隆居家"}
+BRAND_NAMES = {"safety": "安隆工程", "home": "安隆居家"}
 
 # 導航定義
 NAV = [
@@ -90,6 +90,18 @@ def render_head(title, description, keywords, canonical_filename, jsonld_blocks=
   <script type="application/ld+json">
 {block}
   </script>"""
+    analytics = ""
+    if GA4_ID != "G-XXXXXXXXXX" and GA4_ID.startswith("G-"):
+        analytics = f"""
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', '{GA4_ID}', {{ page_title: document.title, page_path: window.location.pathname }});
+  </script>"""
     return f"""<!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
@@ -111,21 +123,15 @@ def render_head(title, description, keywords, canonical_filename, jsonld_blocks=
   <meta property="og:title" content="{title}" />
   <meta property="og:description" content="{description}" />
   <meta property="og:site_name" content="安隆安全網有限公司" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{title}" />
+  <meta name="twitter:description" content="{description}" />
+  <meta name="theme-color" content="#0f2c4a" />
 
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="{SC_TOKEN}" />
 
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){{dataLayer.push(arguments);}}
-    gtag('js', new Date());
-    gtag('config', '{GA4_ID}', {{
-      page_title: document.title,
-      page_path: window.location.pathname
-    }});
-  </script>
+{analytics}
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234a8c8c'%3E%3Cpath d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z'/%3E%3C/svg%3E" />
@@ -133,10 +139,10 @@ def render_head(title, description, keywords, canonical_filename, jsonld_blocks=
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet" />
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css" />{extra_ld}
+  <link rel="stylesheet" href="styles.css?v=20260813-5" />{extra_ld}
 </head>"""
 
 
@@ -152,16 +158,8 @@ def render_header(active_key):
     mobile_nav = "\n".join(mobile_items)
     return f"""  <header class="header" id="header">
     <div class="container header-inner">
-      <a href="index.html" class="logo" aria-label="安隆安全網有限公司首頁">
-        <span class="logo-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-        </span>
-        <span class="logo-text">
-          <span class="logo-name">安隆</span>
-          <span class="logo-en">ANLONG SAFETY</span>
-        </span>
+      <a href="index.html" class="logo" aria-label="&#23433;&#38534;&#23433;&#20840;&#32178;&#26377;&#38480;&#20844;&#21496;&#39318;&#38913;">
+        <img class="header-logo-img" src="images/logo/anlong-logo-white.webp" alt="&#23433;&#38534;&#23433;&#20840;&#32178;&#26377;&#38480;&#20844;&#21496;" width="480" height="270" decoding="async" />
       </a>
 
       <nav class="nav-desktop" aria-label="主選單">
@@ -252,7 +250,8 @@ def render_footer():
     <span>LINE 諮詢</span>
   </a>
 
-  <script src="script.js" defer></script>"""
+  <script src="search-data.js?v=20260804-2" defer></script>
+  <script src="script.js?v=20260804-2" defer></script>"""
 
 
 def render_breadcrumb_visible(items):
@@ -361,7 +360,7 @@ def render_product_card(pid, p):
 def render_index():
     """首頁 — 多頁版 landing"""
     title = "安隆安全網有限公司｜防墜網、隱形鐵窗、樓梯安全網、球場攔截網專業安裝"
-    description = "安隆安全網專營各式安全網。旗下兩大品牌：安隆安全（工程級）、安隆居家（住宅用）。北中南四大駐點，5,000 萬產品責任險，國家認證。"
+    description = "安隆安全網專營各式安全網。旗下兩大品牌：安隆工程（工程級）、安隆居家（住宅用）。北中南四大駐點，5,000 萬產品責任險，國家認證。"
     keywords = "安隆安全網,防墜網,隱形鐵窗,樓梯安全網,工地安全網,球類攔截網,高雄安全網,陽台防墜網"
 
     # 結構化資料
@@ -423,7 +422,7 @@ def render_index():
         <div class="brand-switcher" role="tablist" aria-label="品牌切換">
           <button class="brand-btn brand-btn-safety active" data-brand="safety" role="tab" aria-selected="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>安隆安全</span><span class="brand-btn-en">SAFETY</span>
+            <span>安隆工程</span><span class="brand-btn-en">SAFETY</span>
           </button>
           <button class="brand-btn brand-btn-home" data-brand="home" role="tab" aria-selected="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -481,7 +480,7 @@ def render_index():
         <div class="brand-showcase-grid">
           <article class="brand-showcase-card safety">
             <div class="brand-showcase-eyebrow">ANLONG SAFETY</div>
-            <h3>安隆安全 · 工程級</h3>
+            <h3>安隆工程 · 工程級</h3>
             <p>專業工地防墜網、球場攔截網、太陽能板防護網、廠區安全網。符合勞安規範，承載式設計。</p>
             <div class="brand-showcase-tags">
               <span class="brand-showcase-tag">工地防墜網</span>
@@ -598,7 +597,7 @@ def render_index():
 def render_products():
     """產品型錄頁"""
     title = "產品型錄｜安隆安全網有限公司 - 防墜網、隱形鐵窗、樓梯安全網一覽"
-    description = "安隆兩大品牌共 24 項產品。安隆安全（工程級）：工地防墜、球場攔截、太陽能、廠區安全網。安隆居家（住宅用）：樓梯防墜、隱形鐵窗、陽台防護、創意彩色網。"
+    description = "安隆兩大品牌共 24 項產品。安隆工程（工程級）：工地防墜、球場攔截、太陽能、廠區安全網。安隆居家（住宅用）：樓梯防墜、隱形鐵窗、陽台防護、創意彩色網。"
     keywords = "安全網,防墜網,隱形鐵窗,樓梯安全網,球場攔截網,工地安全網,陽台防墜網,農業防鳥網,遮光網,產品型錄"
 
     ld_breadcrumb = render_breadcrumb_jsonld([
@@ -889,7 +888,7 @@ def render_faq():
     ])
 
     faq_html = "\n".join(
-        f'''          <details class="faq-item">
+        f'''          <details class="faq-item" id="faq-{num}">
             <summary><span class="faq-num">{num}</span><span class="faq-q">{q}</span></summary>
             <div class="faq-a">{a}</div>
           </details>'''
@@ -963,7 +962,7 @@ def render_contact():
             <div class="contact-info">
               <div class="section-eyebrow-light">— CONTACT</div>
               <h2 class="section-title-light">三種方式<br />立即聯絡安隆</h2>
-              <p class="contact-intro">最快回覆方式：來電或加 LINE。表單會在 1 個工作日內回覆。</p>
+              <p class="contact-intro">最快回覆方式：來電或加 LINE。表單會整理需求並帶入官方 LINE，由您確認後送出。</p>
 
               <ul class="contact-list">
                 <li><a href="tel:07-7828005"><div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><div class="contact-label">公司電話</div><div class="contact-value">07-7828005</div></div></a></li>
@@ -973,15 +972,17 @@ def render_contact():
             </div>
 
             <form class="contact-form" id="contactForm" novalidate>
-              <h3>快速詢價表單</h3>
-              <p>填寫您的需求，我們會在 1 個工作日內回覆</p>
-              <div class="form-group"><label for="formName">姓名</label><input type="text" id="formName" name="name" placeholder="您的姓名" required /></div>
+              <h3>LINE 快速詢價</h3>
+              <p>填寫後會開啟官方 LINE，訊息不會儲存在網站</p>
+              <div class="form-group"><label for="formName">姓名</label><input type="text" id="formName" name="name" placeholder="您的姓名" autocomplete="name" required /></div>
               <div class="form-row">
-                <div class="form-group"><label for="formPhone">聯絡電話</label><input type="tel" id="formPhone" name="phone" placeholder="09xx-xxx-xxx" required /></div>
+                <div class="form-group"><label for="formPhone">聯絡電話</label><input type="tel" id="formPhone" name="phone" placeholder="09xx-xxx-xxx" autocomplete="tel" inputmode="tel" required /></div>
                 <div class="form-group"><label for="formRegion">所在區域</label><select id="formRegion" name="region"><option>高雄</option><option>台中</option><option>新竹</option><option>桃園</option><option>其他</option></select></div>
               </div>
               <div class="form-group"><label for="formMessage">需求說明</label><textarea id="formMessage" name="message" rows="4" placeholder="請描述您的場地、想安裝的位置與尺寸..."></textarea></div>
-              <button type="submit" class="form-submit">送出免費詢價</button>
+              <p class="form-note">按下按鈕後，請在 LINE 對話中確認內容並按送出，詢價才會正式送達。</p>
+              <button type="submit" class="form-submit">帶入 LINE 免費詢價</button>
+              <p class="form-status" id="formStatus" aria-live="polite"></p>
             </form>
           </div>
         </div>

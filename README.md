@@ -2,19 +2,19 @@
 
 > 多頁式品牌網站｜兩大品牌：安隆安全（工程級）+ 安隆居家（住宅用）
 
-## 網站結構（6 頁主站 + 24 頁產品詳細頁）
+## 網站結構（6 頁主站 + 25 頁產品詳細頁）
 
 ```
 anlong-website/
 ├── index.html              ← 首頁（雙品牌介紹、精選產品、精選案例）
-├── products.html           ← 產品型錄（全部 24 項，可篩選品牌與分類）
+├── products.html           ← 產品型錄（全部 25 項，可篩選品牌與分類）
 ├── cases.html              ← 施工案例（16 個指標案場）
 ├── about.html              ← 關於安隆（公司介紹、四大駐點）
 ├── faq.html                ← 常見問題（8 大常見問題 + FAQPage JSON-LD）
 ├── contact.html            ← 聯絡我們（電話、LINE、表單、服務區域）
 │
 ├── products/
-│   ├── safety/  (12 個工程級產品頁)
+│   ├── safety/  (13 個工程級產品頁)
 │   └── home/    (12 個居家用產品頁)
 │
 ├── styles.css              ← 樣式（雙品牌主題色透過 CSS Variables 切換）
@@ -23,7 +23,7 @@ anlong-website/
 ├── robots.txt              ← 搜尋引擎爬蟲指引
 │
 ├── generate-pages.py       ← 生成主要頁面（6 頁）
-└── generate-products.py    ← 生成產品詳細頁（24 頁）+ sitemap
+└── generate-products.py    ← 生成產品詳細頁（25 頁）+ sitemap
 ```
 
 ## 兩大特色
@@ -83,7 +83,7 @@ https://www.anlongsafety.com.tw/sitemap.xml
 3. 依序執行：
    ```bash
    python3 generate-pages.py     # 生成 6 個主要頁面
-   python3 generate-products.py  # 生成 24 個產品頁 + sitemap
+   python3 generate-products.py  # 生成 25 個產品頁 + sitemap
    ```
 
 ## 部署選項

@@ -47,6 +47,7 @@
     s10: { name: "隔離阻擋用安全網", desc: "人車分流、區域隔離、活動分區用網。可快速架設、收納，活動式設計適合短期工程。", tag: "分區隔離" },
     s11: { name: "人類攀爬網", desc: "兒童遊樂場攀爬網，正方形網目設計。承載多人同時攀爬，繩結結構安全經過認證。", tag: "遊樂設施" },
     s12: { name: "防磁磚掉落網", desc: "老舊大樓外牆磁磚防護，保護行人安全。透明或細網目設計，不影響大樓外觀。", tag: "外牆防護" },
+    s13: { name: "植物攀爬網", desc: "牆面、圍籬與棚架用植物攀爬網，依現場尺寸客製菱形網面，協助藤蔓植栽攀附與生長導引。", tag: "植栽綠化" },
     // 安隆居家
     h1: { name: "樓梯防墜安全網", desc: "透天樓梯標配，5mm 線徑 10×10cm 網目，國家標準。可選擇 11 種顏色搭配居家風格。", tag: "熱銷款" },
     h2: { name: "L 型樓梯安全網", desc: "依樓梯形狀客製，多色可選，安裝整潔美觀。轉角處特殊處理，線條俐落。", tag: "客製化" },
@@ -200,6 +201,9 @@
     const form = $("#contactForm");
     if (!form) return;
 
+    const status = $("#formStatus", form);
+    const lineAccountId = "%40643qzkfp";
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
@@ -211,16 +215,28 @@
       };
 
       if (!data.name || !data.phone) {
-        alert("請填寫姓名與聯絡電話");
+        if (status) status.textContent = "請填寫姓名與聯絡電話。";
+        const firstInvalid = !data.name ? form.name : form.phone;
+        firstInvalid.focus();
         return;
       }
 
-      // 未來可改為：
-      //   await fetch('/api/inquiry', { method: 'POST', body: JSON.stringify(data) });
-      console.log("提交詢價資料：", data);
-      alert("感謝您的詢價！我們會在 1 個工作日內回覆。\n\n（此為示意表單，實際送出請串接後端 API）");
+      const message = [
+        "您好，我想詢問安全網安裝：",
+        `姓名：${data.name}`,
+        `電話：${data.phone}`,
+        `區域：${data.region || "未填寫"}`,
+        `需求：${data.message || "希望由專人聯絡說明"}`,
+        `來源頁面：${window.location.href}`,
+      ].join("\n");
 
-      form.reset();
+      if (status) status.textContent = "正在開啟 LINE，訊息帶入後請確認並按下送出。";
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "generate_lead", { method: "LINE inquiry form" });
+      }
+      window.location.assign(
+        `https://line.me/R/oaMessage/${lineAccountId}/?${encodeURIComponent(message)}`
+      );
     });
   }
 
@@ -246,7 +262,192 @@
   }
 
   /* ============================================
-     10. 啟動
+     10. 輕量站內搜尋
+     ============================================ */
+  function bindSiteSearch() {
+    const headerInner = $(".header-inner");
+    const mobileToggle = $("#mobileToggle", headerInner || document);
+    if (!headerInner || !mobileToggle || $("#siteSearchTrigger")) return;
+
+    const trigger = document.createElement("button");
+    trigger.type = "button";
+    trigger.className = "site-search-trigger";
+    trigger.id = "siteSearchTrigger";
+    trigger.setAttribute("aria-label", "開啟站內搜尋");
+    trigger.setAttribute("aria-haspopup", "dialog");
+    trigger.setAttribute("aria-controls", "siteSearch");
+    trigger.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="20" y1="20" x2="16.65" y2="16.65"></line></svg><span>搜尋</span>';
+    headerInner.insertBefore(trigger, mobileToggle);
+
+    const overlay = document.createElement("div");
+    overlay.className = "site-search-overlay";
+    overlay.id = "siteSearch";
+    overlay.hidden = true;
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-labelledby", "siteSearchTitle");
+    overlay.innerHTML = `
+      <div class="site-search-panel">
+        <div class="site-search-head">
+          <div>
+            <div class="site-search-eyebrow">SITE SEARCH</div>
+            <h2 id="siteSearchTitle">快速搜尋</h2>
+          </div>
+          <button type="button" class="site-search-close" aria-label="關閉搜尋">×</button>
+        </div>
+        <label class="site-search-field">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="20" y1="20" x2="16.65" y2="16.65"></line></svg>
+          <input type="search" id="siteSearchInput" placeholder="搜尋產品、案例、地區或問題…" autocomplete="off" />
+        </label>
+        <div class="site-search-popular" aria-label="熱門搜尋">
+          <span>熱門：</span>
+          <button type="button" data-query="樓梯安全網">樓梯安全網</button>
+          <button type="button" data-query="防鳥網">防鳥網</button>
+          <button type="button" data-query="高雄">高雄</button>
+          <button type="button" data-query="球場">球場</button>
+          <button type="button" data-query="保固">保固</button>
+        </div>
+        <p class="site-search-status" id="siteSearchStatus" aria-live="polite">輸入關鍵字即可搜尋全站內容。</p>
+        <div class="site-search-results" id="siteSearchResults"></div>
+      </div>`;
+    document.body.appendChild(overlay);
+
+    const input = $("#siteSearchInput", overlay);
+    const results = $("#siteSearchResults", overlay);
+    const status = $("#siteSearchStatus", overlay);
+    const closeButton = $(".site-search-close", overlay);
+    const index = Array.isArray(window.ANLONG_SEARCH_INDEX)
+      ? window.ANLONG_SEARCH_INDEX
+      : [];
+    const root = new URL(window.ANLONG_SEARCH_ROOT || "./", window.location.href);
+    let lastFocus = null;
+
+    function normalize(value) {
+      return String(value || "").normalize("NFKC").toLowerCase().replace(/\s+/g, "");
+    }
+
+    const prepared = index.map((item) => ({
+      item,
+      title: normalize(item.title),
+      summary: normalize(item.summary),
+      keywords: normalize(item.keywords),
+      type: normalize(item.type),
+    }));
+
+    function findMatches(query) {
+      const simplified = query.replace(
+        /(請問|多久|多少|如何|怎麼|可以|是否|什麼|哪裡|哪個|為什麼|有沒有)/g,
+        " "
+      );
+      const terms = simplified.trim().split(/\s+/).map(normalize).filter(Boolean);
+      if (!terms.length) return [];
+      return prepared
+        .map((entry) => {
+          const haystack = `${entry.title} ${entry.keywords} ${entry.summary} ${entry.type}`;
+          if (!terms.every((term) => haystack.includes(term))) return null;
+          let score = 0;
+          terms.forEach((term) => {
+            if (entry.title === term) score += 80;
+            else if (entry.title.startsWith(term)) score += 45;
+            else if (entry.title.includes(term)) score += 30;
+            if (entry.keywords.includes(term)) score += 12;
+            if (entry.summary.includes(term)) score += 4;
+          });
+          return { item: entry.item, score };
+        })
+        .filter(Boolean)
+        .sort((a, b) => b.score - a.score || a.item.title.localeCompare(b.item.title, "zh-Hant"));
+    }
+
+    function renderResults(query) {
+      results.replaceChildren();
+      const matches = findMatches(query);
+      if (!query.trim()) {
+        status.textContent = "輸入關鍵字即可搜尋全站內容。";
+        return;
+      }
+      status.textContent = matches.length
+        ? `找到 ${matches.length} 筆結果${matches.length > 12 ? "，顯示最相關的 12 筆" : ""}。`
+        : "找不到符合的內容，請嘗試較短的關鍵字。";
+
+      matches.slice(0, 12).forEach(({ item }) => {
+        const link = document.createElement("a");
+        link.className = "site-search-result";
+        link.href = new URL(item.url, root).href;
+
+        const top = document.createElement("span");
+        top.className = "site-search-result-top";
+        const title = document.createElement("strong");
+        title.textContent = item.title;
+        const type = document.createElement("span");
+        type.className = "site-search-result-type";
+        type.textContent = item.type;
+        top.append(title, type);
+
+        const summary = document.createElement("span");
+        summary.className = "site-search-result-summary";
+        summary.textContent = item.summary;
+        link.append(top, summary);
+        results.appendChild(link);
+      });
+    }
+
+    function openSearch(initialQuery = "") {
+      lastFocus = document.activeElement;
+      overlay.hidden = false;
+      document.body.classList.add("search-open");
+      input.value = initialQuery;
+      renderResults(initialQuery);
+      window.requestAnimationFrame(() => input.focus());
+    }
+
+    function closeSearch() {
+      overlay.hidden = true;
+      document.body.classList.remove("search-open");
+      if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+    }
+
+    trigger.addEventListener("click", () => openSearch());
+    closeButton.addEventListener("click", closeSearch);
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) closeSearch();
+    });
+    input.addEventListener("input", () => renderResults(input.value));
+    $$("[data-query]", overlay).forEach((button) => {
+      button.addEventListener("click", () => {
+        input.value = button.dataset.query;
+        renderResults(input.value);
+        input.focus();
+      });
+    });
+    document.addEventListener("keydown", (event) => {
+      const tag = document.activeElement && document.activeElement.tagName;
+      if (event.key === "Escape" && !overlay.hidden) closeSearch();
+      if (
+        event.key === "/" &&
+        overlay.hidden &&
+        tag !== "INPUT" &&
+        tag !== "TEXTAREA" &&
+        tag !== "SELECT"
+      ) {
+        event.preventDefault();
+        openSearch();
+      }
+    });
+
+    let anchoredFaq = null;
+    try {
+      anchoredFaq = window.location.hash
+        ? document.querySelector(window.location.hash)
+        : null;
+    } catch (e) {
+      anchoredFaq = null;
+    }
+    if (anchoredFaq && anchoredFaq.matches("details.faq-item")) anchoredFaq.open = true;
+  }
+
+  /* ============================================
+     11. 啟動
      ============================================ */
   function init() {
     bindBrandSwitcher();
@@ -254,6 +455,7 @@
     bindMobileMenu();
     bindContactForm();
     bindSmoothScroll();
+    bindSiteSearch();
   }
 
   if (document.readyState === "loading") {

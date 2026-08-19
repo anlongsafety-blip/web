@@ -22,22 +22,22 @@ GA4_ID = "G-XXXXXXXXXX"  # ← 替換為實際 GA4 測量 ID
 OUTPUT_DIR = Path(__file__).parent  # 與本腳本同目錄
 PRODUCTS_DIR = OUTPUT_DIR / "products"
 
-BRAND_NAMES = {"safety": "安隆安全", "home": "安隆居家"}
+BRAND_NAMES = {"safety": "安隆工程", "home": "安隆居家"}
 BRAND_NAMES_EN = {"safety": "ANLONG SAFETY", "home": "ANLONG HOME"}
 
 # 共用品牌規格（每個產品都套用）
 COMMON_SPECS = {
     "保固期": "室外安裝 1 年，室內安裝 2 年（非人為因素及天然災害下損壞）",
-    "服務區域": "高雄、台中、新竹、桃園駐點，全台可服務",
+    "服務區域": "全台可安排評估，台北、新北已有工程實績",
     "訂製選項": "顏色、尺寸、網目、線徑均可依需求調整",
     "材質": "尼龍（室內）／特多龍（戶外），抗 UV、防潑水",
     "顏色": "白、黑、深藍、紫、深咖、水藍、綠、棕（淡咖）、紅、橘、黃 共 11 色",
     "責任險": "投保 5,000 萬產品責任險",
-    "認證": "公司施工人員具國家職業安全衛生證照，產品符合國家安全標準",
+    "工程文件": "依用途、交付網材與本案要求提供可對應的規格及試驗資料",
 }
 
 # ============================================
-# 產品資料（24 項）
+# 產品資料（25 項）
 # ============================================
 PRODUCTS = {
     # ============== 安隆安全 ==============
@@ -45,20 +45,19 @@ PRODUCTS = {
         "brand": "safety", "slug": "construction-safety-net",
         "name": "工地防墜安全網", "tag": "勞安規範", "icon": "shield",
         "category": "construction", "category_name": "工程營建",
-        "summary": "符合勞動部勞工安全衛生規範，攔截高度 ≤ 7 公尺。採用高張力特多龍材質，可承受 100kg 以上的衝擊負載，全方位工地防護首選。",
-        "description": "工地防墜安全網是建築工程現場的法定基本配備。安隆採用高張力特多龍紗線編織，每網經過拉力測試，符合勞動部「營造安全衛生設施標準」第 18 條規範。網目為菱形 10×10 公分以下，可有效攔截作業人員與工具墜落。",
+        "summary": "依《營造安全衛生設施標準》第 19、22 條與本案文件評估，查核攔截高度、延伸距離、固定結構、網下淨空與定期檢查。",
+        "description": "工地有墜落風險時，須依《營造安全衛生設施標準》第 19、22 條與本案文件配置防護。安隆依開口、墜落高度、周邊延伸、固定結構與網下淨空評估，並以可對應實際網材的規格與試驗資料供查核。",
         "features": [
-            "符合「營造安全衛生設施標準」第 18 條規定",
-            "攔截高度 ≤ 7 公尺，可承受人員墜落衝擊",
-            "高張力特多龍材質，斷裂強度 ≥ 23kN",
-            "菱形網目，邊長 ≤ 10 公分",
-            "中心點垂墜量 20%–25% 短邊長度，符合標準",
-            "可承受 100kg 以上重物衝擊負載",
-            "邊繩穿線、四角打結，現場快速架設",
+            "依「營造安全衛生設施標準」第 19、22 條及本案文件確認防護需求",
+            "攔截高度不得超過 7 公尺，周邊延伸距離依墜落高度配置",
+            "網下不得有障礙物，並保留足以承受墜落衝擊的淨空",
+            "材料與張掛方式核對 CNS 14252，或 CNS 16079-1 與 CNS 16079-2",
+            "可提供與實際交付網材相對應的規格與試驗資料",
+            "每週檢查；攔截人員或重物後測試，性能不足時更換",
         ],
         "specs": {
             "線徑": "5mm（標準）／可加粗訂製",
-            "網目": "10×10 cm 菱形（國家標準）",
+            "網目": "10×10 cm 菱形（實際依用途與工程文件確認）",
             "材質": "高張力特多龍（戶外）",
             "顏色": "白色為主，可訂製其他顏色",
             "尺寸": "依工區面積客製",
@@ -74,15 +73,15 @@ PRODUCTS = {
         "brand": "safety", "slug": "building-atrium-net",
         "name": "大樓天井防墜網", "tag": "專業安裝", "icon": "shield",
         "category": "construction", "category_name": "工程營建",
-        "summary": "依規定 7 米高度安裝一件，承載式設計，垂墜量精準控制 20%–25%。專為大樓中庭、樓梯間天井設計，可選鋼索加強版本。",
-        "description": "大樓天井防墜網是社區與商業大樓不可或缺的安全設施，可有效防止人員、物品墜落。依「建築技術規則」與大樓管理條例，天井應每 7 米安裝一片防墜網。安隆採用承載式設計，網體可承受成人衝擊。",
+        "summary": "依開口尺寸、攔截高度、固定結構與網下淨空客製，適用大樓中庭、樓梯間與採光井。",
+        "description": "大樓天井防墜網用於降低人員或物品墜落風險。安隆依開口尺寸、可能墜落點、固定結構、施工動線與網下淨空評估，規格及驗收方式以本案文件與對應試驗資料為準。",
         "features": [
-            "依規定 7 米高度安裝一件（約 2–3 層樓）",
-            "承載式設計，垂墜量精準 20%–25%",
-            "可選鋼索加強版本，固定點 75–85cm 一處",
+            "可能墜落點至網面的攔截高度不得超過 7 公尺",
+            "依開口尺寸、墜落高度、固定結構與網下淨空設計",
+            "固定方式與間距依結構、網材及本案工程文件確認",
             "適用各式天井：樓梯間、中庭、採光井",
-            "逃生梯天井建議一層裝一件（轉角多）",
-            "符合最新大樓管理規範",
+            "逃生梯與多轉角天井須逐層評估，避免留下未防護開口",
+            "依第 19、22 條與本案驗收要求查核",
             "施工人員國家證照，安裝過程不破壞建築結構",
         ],
         "specs": {
@@ -388,6 +387,40 @@ PRODUCTS = {
             ("特殊建材外牆", "石材、預鑄板的二次防護"),
         ],
         "keywords": "防磁磚掉落網,外牆防墜網,磁磚剝落防護,老舊大樓外牆網,磁磚墜落防護網",
+    },
+    "s13": {
+        "brand": "safety", "slug": "plant-climbing-net",
+        "name": "植物攀爬網", "tag": "植栽綠化", "icon": "shield",
+        "category": "agriculture", "category_name": "農業與綠化",
+        "summary": "牆面、圍籬與棚架用植物攀爬網，依現場尺寸客製菱形網面，協助藤蔓植栽攀附與生長導引。",
+        "description": "植物攀爬網可設置於牆面、圍籬或棚架，提供藤蔓植物攀附與生長方向。安隆依現場結構、範圍及植栽需求規劃網面尺寸與固定方式，適合庭園綠化、建築立面與景觀空間。",
+        "features": [
+            "菱形網目，提供藤蔓多方向攀附",
+            "依牆面、圍籬或棚架尺寸客製",
+            "綠色網體與植栽景觀融合",
+            "固定點位依現場結構規劃",
+            "適用垂直綠化、棚架與圍籬植栽",
+        ],
+        "specs": {
+            "網目": "依植栽種類與現場需求規劃",
+            "尺寸": "依現場丈量客製",
+            "安裝位置": "牆面／圍籬／棚架",
+            "固定方式": "依現場結構評估",
+        },
+        "common_specs": {
+            "保固期": "室外安裝 1 年，室內安裝 2 年（非人為因素及天然災害下損壞）",
+            "服務區域": "高雄、台中、新竹、桃園駐點，全台可服務",
+            "訂製選項": "顏色、尺寸、網目、線徑均可依需求調整",
+            "材料與顏色": "依使用環境、植栽需求及實際材料供應確認",
+            "責任險": "投保 5,000 萬產品責任險",
+            "施工評估": "安裝前確認固定結構、網面張力與植栽空間",
+        },
+        "use_cases": [
+            ("住宅與社區景觀", "庭院牆面、圍籬植栽導引"),
+            ("校園與商業空間", "立面綠化與景觀植栽"),
+            ("棚架綠化", "藤蔓植物攀附與遮蔭規劃"),
+        ],
+        "keywords": "植物攀爬網,藤蔓攀爬網,爬藤網,綠牆網,垂直綠化網,棚架植栽網",
     },
     # ============== 安隆居家 ==============
     "h1": {
@@ -753,12 +786,13 @@ def render_features(features):
     return "\n".join(f"          <li>{f}</li>" for f in features)
 
 
-def render_specs(specs):
+def render_specs(specs, common_specs=None):
     rows = []
     for k, v in specs.items():
         rows.append(f"          <tr><th>{k}</th><td>{v}</td></tr>")
     common = []
-    for k, v in COMMON_SPECS.items():
+    selected_common_specs = COMMON_SPECS if common_specs is None else common_specs
+    for k, v in selected_common_specs.items():
         common.append(f"          <tr><th>{k}</th><td>{v}</td></tr>")
     return "\n".join(rows + common)
 
@@ -858,31 +892,23 @@ def render_product_jsonld(product):
     brand = product["brand"]
     return f"""    {{
       "@context": "https://schema.org",
-      "@type": "Product",
-      "name": "{product['name']}",
-      "description": "{product['summary']}",
-      "category": "{product['category_name']}",
+       "@type": "Product",
+       "name": "{product['name']}",
+       "description": "{product['summary']}",
+       "url": "{SITE_URL}/products/{brand}/{product['slug']}.html",
+       "image": "{SITE_URL}/images/products/{brand}/{product['slug']}.webp",
+       "category": "{product['category_name']}",
       "brand": {{
         "@type": "Brand",
         "name": "{BRAND_NAMES[brand]}",
         "alternateName": "{BRAND_NAMES_EN[brand]}"
       }},
-      "manufacturer": {{
-        "@type": "Organization",
-        "name": "安隆安全網有限公司",
-        "url": "{SITE_URL}/"
-      }},
-      "offers": {{
-        "@type": "Offer",
-        "url": "{SITE_URL}/products/{brand}/{product['slug']}.html",
-        "availability": "https://schema.org/InStock",
-        "priceCurrency": "TWD",
-        "priceSpecification": {{
-          "@type": "PriceSpecification",
-          "valueAddedTaxIncluded": true
-        }}
-      }}
-    }}"""
+       "manufacturer": {{
+         "@type": "Organization",
+         "name": "安隆安全網有限公司",
+         "url": "{SITE_URL}/"
+       }}
+     }}"""
 
 
 def render_page(pid, product):
@@ -899,11 +925,22 @@ def render_page(pid, product):
     keywords = product["keywords"]
 
     features_html = render_features(product["features"])
-    specs_html = render_specs(product["specs"])
+    specs_html = render_specs(product["specs"], product.get("common_specs"))
     use_cases_html = render_use_cases(product["use_cases"])
     related_html = render_related_products(pid, brand, product["category"])
     breadcrumb_jsonld = render_breadcrumb_jsonld(product)
     product_jsonld = render_product_jsonld(product)
+
+    analytics = ""
+    if GA4_ID != "G-XXXXXXXXXX" and GA4_ID.startswith("G-"):
+        analytics = f"""
+  <script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', '{GA4_ID}', {{ page_title: document.title, page_path: window.location.pathname }});
+  </script>"""
 
     return f"""<!DOCTYPE html>
 <html lang="zh-Hant-TW">
@@ -925,22 +962,19 @@ def render_page(pid, product):
   <meta property="og:url" content="{SITE_URL}/products/{brand}/{slug}.html" />
   <meta property="og:title" content="{name}｜{brand_name} - 安隆安全網" />
   <meta property="og:description" content="{summary}" />
+  <meta property="og:image" content="{SITE_URL}/images/products/{brand}/{slug}.webp" />
   <meta property="og:site_name" content="安隆安全網有限公司" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{name}｜{brand_name} - 安隆安全網" />
+  <meta name="twitter:description" content="{summary}" />
+  <meta name="twitter:image" content="{SITE_URL}/images/products/{brand}/{slug}.webp" />
+  <meta name="theme-color" content="#0f2c4a" />
 
   <!-- Google Search Console -->
   <meta name="google-site-verification" content="n2u56H6tGekvNenjobW76FdALH_lMMqFdFpkvfZbAXA" />
 
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){{dataLayer.push(arguments);}}
-    gtag('js', new Date());
-    gtag('config', '{GA4_ID}', {{
-      page_title: document.title,
-      page_path: window.location.pathname
-    }});
-  </script>
+  <!-- GA4 只會在填入有效 Measurement ID 後載入 -->
+{analytics}
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234a8c8c'%3E%3Cpath d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z'/%3E%3C/svg%3E" />
@@ -948,10 +982,10 @@ def render_page(pid, product):
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../styles.css?v=20260813-5" />
 
   <!-- JSON-LD: Product -->
   <script type="application/ld+json">
@@ -969,15 +1003,7 @@ def render_page(pid, product):
   <header class="header">
     <div class="container header-inner">
       <a href="../../index.html" class="logo">
-        <span class="logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-        </span>
-        <span class="logo-text">
-          <span class="logo-name">安隆</span>
-          <span class="logo-en">ANLONG SAFETY</span>
-        </span>
+        <img class="header-logo-img" src="../../images/logo/anlong-logo-white.webp" alt="&#23433;&#38534;&#23433;&#20840;&#32178;&#26377;&#38480;&#20844;&#21496;" width="480" height="270" decoding="async" />
       </a>
 
       <nav class="nav-desktop">
@@ -1127,7 +1153,7 @@ def render_page(pid, product):
         <div>
           <h4>產品分類</h4>
           <ul>
-            <li><a href="../../products.html">安隆安全 · 工程級</a></li>
+            <li><a href="../../products.html">安隆工程 · 工程級</a></li>
             <li><a href="../../products.html">安隆居家 · 住宅用</a></li>
             <li><a href="../../cases.html">施工案例</a></li>
             <li><a href="../../faq.html">常見問題</a></li>
@@ -1162,7 +1188,8 @@ def render_page(pid, product):
     <span>LINE 諮詢</span>
   </a>
 
-  <script src="../../script.js" defer></script>
+  <script src="../../search-data.js?v=20260804-2" defer></script>
+  <script src="../../script.js?v=20260804-2" defer></script>
 </body>
 </html>
 """
@@ -1199,34 +1226,40 @@ def main():
 
 
 def generate_sitemap():
-    from datetime import date
-    today = date.today().isoformat()
+    from datetime import datetime
 
-    urls = [
-        (f"{SITE_URL}/", "1.0", "weekly"),
-        (f"{SITE_URL}/products.html", "0.9", "weekly"),
-        (f"{SITE_URL}/cases.html", "0.7", "monthly"),
-        (f"{SITE_URL}/about.html", "0.6", "monthly"),
-        (f"{SITE_URL}/faq.html", "0.6", "monthly"),
-        (f"{SITE_URL}/contact.html", "0.7", "monthly"),
-    ]
-    # 加入所有產品頁
-    for pid, p in PRODUCTS.items():
-        urls.append((f"{SITE_URL}/products/{p['brand']}/{p['slug']}.html", "0.8", "monthly"))
+    urls = []
+    for page in sorted(OUTPUT_DIR.rglob("*.html")):
+        if page.name.startswith("_"):
+            continue
+        rel = page.relative_to(OUTPUT_DIR).as_posix()
+        url = f"{SITE_URL}/" if rel == "index.html" else f"{SITE_URL}/{rel}"
+        if rel == "index.html":
+            priority, changefreq = "1.0", "weekly"
+        elif rel in {"products.html", "blog.html", "cases-gallery.html"}:
+            priority, changefreq = "0.8", "monthly"
+        elif rel.startswith("products/"):
+            priority, changefreq = "0.8", "monthly"
+        elif rel.startswith("service-areas/"):
+            priority, changefreq = "0.8", "monthly"
+        else:
+            priority, changefreq = "0.7", "monthly"
+        lastmod = datetime.fromtimestamp(page.stat().st_mtime).date().isoformat()
+        urls.append((url, priority, changefreq, lastmod))
 
     xml = ['<?xml version="1.0" encoding="UTF-8"?>']
     xml.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
-    for url, priority, changefreq in urls:
+    for url, priority, changefreq, lastmod in urls:
         xml.append("  <url>")
         xml.append(f"    <loc>{url}</loc>")
-        xml.append(f"    <lastmod>{today}</lastmod>")
+        xml.append(f"    <lastmod>{lastmod}</lastmod>")
         xml.append(f"    <changefreq>{changefreq}</changefreq>")
         xml.append(f"    <priority>{priority}</priority>")
         xml.append("  </url>")
     xml.append("</urlset>")
 
     (OUTPUT_DIR / "sitemap.xml").write_text("\n".join(xml), encoding="utf-8")
-    print(f"✅ sitemap.xml 已生成（{len(urls)} 筆 URL）")
+    print(f"sitemap.xml 已生成（{len(urls)} 筆 URL）")
 
 
 if __name__ == "__main__":
